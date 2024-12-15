@@ -1,5 +1,0 @@
-requests
-aiogram
-sqlalchemy
-psycopg2-binary
-beautifulsoup4
