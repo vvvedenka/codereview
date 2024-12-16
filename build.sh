@@ -9,7 +9,7 @@ docker-compose up --build -d
 
 echo "Ожидаем запуска PostgreSQL..."
 # Ожидаем, пока PostgreSQL не станет доступен
-until docker exec telegram_bot_db pg_isready -U $POSTGRES_USER > /dev/null 2>&1; do
+until docker exec telegram_bot_db pg_isready -U vvvedenka > /dev/null 2>&1; do
   echo "PostgreSQL ещё не готов, подождите 5 секунд..."
   sleep 5
 done
