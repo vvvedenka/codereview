@@ -9,31 +9,23 @@ def scrape_words():
     session = get_db_session()
     url = f"{BASE_URL}/search"
     page = 1
-
     while True:
         response = requests.get(f"{url}?page={page}")
         if response.status_code != 200:
             break
-
         soup = BeautifulSoup(response.text, "html.parser")
         words = soup.find_all("div", class_="word-entry")
-
         if not words:
             break
-
         for word_entry in words:
             word = word_entry.find("a").text.strip()
             length = len(word)
             syllables = count_syllables(word)
             rare_letters = find_rare_letters(word)
-            
-            # Сохраняем слово в базу данных
             db_word = Word(word=word, length=length, syllables=syllables, rare_letters=rare_letters)
             session.add(db_word)
-
         session.commit()
         page += 1
-
     session.close()
 
 def count_syllables(word):
