@@ -10,5 +10,4 @@ class Word(Base):
     text = Column(String, nullable=False)
     length = Column(Integer, nullable=False)
     syllables = Column(Integer, nullable=False)
-    rare_letters = Column(String, nullable=True)
     is_rare = Column(Boolean, default=False)
