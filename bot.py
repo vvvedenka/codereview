@@ -11,17 +11,11 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters import Command
 
-# Логирование
 logging.basicConfig(level=logging.INFO)
-
-# Токен Telegram-бота
 BOT_TOKEN = os.getenv("7947881343:AAFwarC1O2Mr8nBsGSp50r1VbYyNDJWc9BU")
-
-# Инициализация бота и диспетчера
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
-
-# Команда /start
+#Команда /start
 @dp.message(Command("start"))
 async def start_command(message: Message):
     logging.info(f"Received start command from {message.from_user.id}")
@@ -32,8 +26,7 @@ async def start_command(message: Message):
         "/short_words - короткие слова\n"
         "/random_word - случайное слово\n"
     )
-
-# Команда /rare_words
+#Команда /rare_words
 @dp.message(Command("rare_words"))
 async def get_rare_words(message: Message):
     session = SessionLocal()
@@ -41,8 +34,7 @@ async def get_rare_words(message: Message):
     session.close()
     word_list = "\n".join([word.text for word in words])
     await message.answer(word_list if word_list else "Редких слов пока нет.")
-
-# Команда /long_words
+#Команда /long_words
 @dp.message(Command("long_words"))
 async def get_long_words(message: Message):
     session = SessionLocal()
@@ -51,7 +43,7 @@ async def get_long_words(message: Message):
     word_list = "\n".join([word.text for word in words])
     await message.answer(word_list if word_list else "Длинных слов пока нет.")
 
-# Команда /random_word
+#Команда /random_word
 @dp.message(Command("random_word"))
 async def get_random_word(message: Message):
     session = SessionLocal()
@@ -59,7 +51,6 @@ async def get_random_word(message: Message):
     session.close()
     await message.answer(word.text if word else "Слов пока нет.")
 
-# Главная точка запуска
 async def main():
     logging.info("Starting bot")
     await dp.start_polling(bot)
