@@ -5,7 +5,7 @@ from aiogram.types import Message
 from aiogram.utils.keyboard import ReplyKeyboardMarkup, KeyboardButton
 from database import SessionLocal
 from models import Word
-from scraper import fetch_words
+from scraper import scrape_words
 from sqlalchemy.sql.expression import func
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -13,7 +13,7 @@ from aiogram.filters import Command
 
 logging.basicConfig(level=logging.INFO)
 BOT_TOKEN = os.getenv("7947881343:AAFwarC1O2Mr8nBsGSp50r1VbYyNDJWc9BU")
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token='7947881343:AAFwarC1O2Mr8nBsGSp50r1VbYyNDJWc9BU')
 dp = Dispatcher(storage=MemoryStorage())
 #Команда /start
 @dp.message(Command("start"))
