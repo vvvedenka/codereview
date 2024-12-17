@@ -1,3 +1,13 @@
+DO $$
+BEGIN
+   IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'vvvedenka') THEN
+      CREATE DATABASE vvvedenka;
+   END IF;
+END
+$$;
+
+\c vvvedenka;
+
 CREATE TABLE IF NOT EXISTS words (
     id SERIAL PRIMARY KEY,
     text VARCHAR(255) NOT NULL,
@@ -5,4 +15,3 @@ CREATE TABLE IF NOT EXISTS words (
     length INTEGER NOT NULL,
     syllables INTEGER NOT NULL
 );
-CREATE DATABASE vvvedenka;
