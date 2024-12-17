@@ -5,20 +5,25 @@ services:
     image: postgres:15
     container_name: telegram_bot_db
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: vvvedenka
+      POSTGRES_PASSWORD: 1230
+      POSTGRES_DB: vvvedenka
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vvvedenka"]
+      interval: 10s
 
   bot:
     build:
       context: .
     container_name: dictionary_unusual_bot
     environment:
-      BOT_TOKEN: ${BOT_TOKEN}
+      BOT_TOKEN: "7947881343:AAFwarC1O2Mr8nBsGSp50r1VbYyNDJWc9BU"
+      DATABASE_URL: postgresql://vvvedenka:your_password@db:5432/vvvedenka
     volumes:
       - .:/app
     depends_on:
