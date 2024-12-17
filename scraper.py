@@ -18,11 +18,11 @@ def scrape_words():
         if not words:
             break
         for word_entry in words:
-            word = word_entry.find("a").text.strip()
+            word_text = word_entry.find("a").text.strip()
             length = len(word)
-            syllables = count_syllables(word)
-            rare_letters = find_rare_letters(word)
-            db_word = Word(word=word, length=length, syllables=syllables, rare_letters=rare_letters)
+            syllables = count_syllables(word_text)
+            is_rare = is_word_rare(word_text)
+            db_word = Word(word=word_text, length=length, syllables=syllables, is_rare=is_rare)
             session.add(db_word)
         session.commit()
         page += 1
@@ -32,7 +32,7 @@ def count_syllables(word):
     vowels = "аеёиоуыэюя"
     return sum(1 for char in word if char in vowels)
 
-def find_rare_letters(word):
+def is_word_rare(word):
     rare_letters = "фщцчъ"
     return "".join(set(word) & set(rare_letters))
 
