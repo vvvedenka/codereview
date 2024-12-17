@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: postgres:15
@@ -9,7 +7,7 @@ services:
       POSTGRES_PASSWORD: 1230
       POSTGRES_DB: vvvedenka
     ports:
-      - "5433"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -23,7 +21,7 @@ services:
     container_name: dictionary_unusual_bot
     environment:
       BOT_TOKEN: "7947881343:AAFwarC1O2Mr8nBsGSp50r1VbYyNDJWc9BU"
-      DATABASE_URL: postgresql://vvvedenka:1230@127.0.0.1:5433/vvvedenka
+      DATABASE_URL: postgresql://vvvedenka:1230@db:5432/vvvedenka
     volumes:
       - .:/app
     depends_on:
