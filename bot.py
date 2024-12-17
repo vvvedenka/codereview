@@ -18,6 +18,7 @@ dp = Dispatcher(storage=MemoryStorage())
 #Команда /start
 @dp.message(Command("start"))
 async def start_command(message: Message):
+    scrape_words()
     logging.info(f"Received start command from {message.from_user.id}")
     await message.answer(
         "Привет! Я бот для поиска сложных и редких слов. Выберите команду:\n"
