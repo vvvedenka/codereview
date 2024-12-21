@@ -44,6 +44,15 @@ async def get_long_words(message: Message):
     word_list = "\n".join([word.text for word in words])
     await message.answer(word_list if word_list else "Длинных слов пока нет.")
 
+#Команда /short_words
+@dp.message(Command("short_words"))
+async def get_short_words(message: Message):
+    session = SessionLocal()
+    words = session.query(Word).filter(Word.length < 4).limit(10).all()
+    session.close()
+    word_list = "\n".join([word.text for word in words])
+    await message.answer(word_list if word_list else "Коротких слов пока нет.")
+
 #Команда /random_word
 @dp.message(Command("random_word"))
 async def get_random_word(message: Message):
